@@ -1,0 +1,74 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="musicplayer.js"></script>
+
+<style>
+.MusicPlayer_Controls {
+  vertical-align: sub;
+  padding-right: 0.25rem;
+}
+.MusicPlayer_Play {
+  color: grey;
+  font-size: 1rem;
+}
+.MusicPlayer_Play:hover {
+  color: #333333;
+}
+.MusicPlayer_Stop {
+  color: red;
+  font-size: 1rem;
+}
+.MusicPlayer_Stop:hover {
+  color: darkred;
+}
+.MusicPlayer_Title {
+  color: black;
+  font-weight: bold;
+  padding-right: 0.25rem;
+}
+.MusicPlayer_Download {
+  color: grey;
+  vertical-align: sub;
+  font-size: 1rem;
+}
+.MusicPlayer_Download:hover {
+  color: #333333;
+}
+.MusicPlayer_Description {
+  color: black;
+  padding-right: 0.25rem;
+}
+.MusicPlayer_ListItem {
+  font-family: arial, sans-serif;
+  font-size: 11px;
+}
+.MusicPlayer_ListItem:hover {
+  background: #eeeeee;
+}
+</style>
+
+<h1>musicplayer.js</h1>
+
+<div id="playlist_element"></div>
+<script>
+let tracks=[
+  { file: "http://www.subatomiclabs.com/mantis/the.void.mp3", title: "The Void by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/hard.mp3", title: "Hard by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/mantis-TBdemo.mp3", title: "TBdemo by momerath", desc: "(303/pads & piercing sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/subfloor.mp3", title: "SubFloor by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/mantissong.mp3", title: "MantisSong by subatomic", desc: "(all sounds mantis, yes drums too!)" },
+  { file: "http://www.subatomiclabs.com/mantis/acidbass.mp3", title: "AcidBass by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/cause.of.a.new.dark.age.mp3", title: "CauseOfANewDarkAge by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/grand.mp3", title: "Grand by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/weet.mp3", title: "Weet by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/silicone.mp3", title: "Silicone by subatomic", desc: "(all nondrum sounds mantis)" },
+  { file: "http://www.subatomiclabs.com/mantis/feedme.mp3", title: "FeedMe by subatomic", desc: "(all mantis except drums and OSCar bass)" },
+  { file: "http://www.subatomiclabs.com/mantis/daybreak.falls.mp3", title: "Daybreak Falls by subatomic", desc: "(all mantis except drums &amp; added distortion)" },
+  { file: "http://www.subatomiclabs.com/mantis/forestfloor.mp3", title: "ForestFloor by subatomic", desc: "(all mantis except drums &amp; +added external distortion)" },
+  { file: "http://www.subatomiclabs.com/mantis/inertial decay.mp3", title: "InertialDecay by subatomic", desc: "(all mantis except drums &amp; added external distortion)" },
+  { file: "http://www.subatomiclabs.com/mantis/rabbithole.mp3", title: "Rabbithole (subatomic)", desc: "(all mantis except drums +added external distortion)" },
+  { file: "http://www.subatomiclabs.com/mantis/strawberryflavoreddeath.mp3", title: "StrawberryFlavoredDeath (subatomic)", desc: "(all mantis except drums +external distortion)" },
+];
+let musicplayer = new MusicPlayer();
+musicplayer.init( playlist_element, tracks );
+</script>
+
