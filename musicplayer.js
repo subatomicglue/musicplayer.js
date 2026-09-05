@@ -51,9 +51,10 @@ function MusicPlayer() {
 
         let doit = () => {
           console.log( "stopping ", this.now_playing.title, this.now_playing.file );
-          if (this.use_stop_audio)
-            this.now_playing.audio.pause();
-          delete this.now_playing.audio; // hard-kill the audio, no need to pause, we'll rebuffer it later
+          //if (this.use_stop_audio) // that mode makes little sense
+          this.now_playing.audio.pause();
+          this.now_playing.audio.currentTime = 0;
+          delete this.now_playing.audio; // hard-kill the audio, we'll rebuffer it later
           this.now_playing.playPromise = undefined;
           this.now_playing = undefined;
           this.instop = false;
