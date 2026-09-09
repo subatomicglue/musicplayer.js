@@ -856,13 +856,15 @@
     }
 
     connectedCallback() {
-      if (!this.closest("music-player-playlist")) {
+      const playlist = this.closest("music-player-playlist");
+      if (!playlist) {
         this.wrapOrphan();
         return;
       }
       super.connectedCallback();
       this.ensureDOM();
       this.render();
+      if (!playlist.presentationOnly) playlist.queueSync();
     }
 
     resolvePlayer() {
