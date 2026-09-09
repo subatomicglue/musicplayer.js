@@ -2,7 +2,7 @@
 
 HTML Web Component music track player
 
-[ audioplayer demo ](http://htmlpreview.github.io/?https://raw.githubusercontent.com/subatomicglue/musicplayer.js/master/index.html)
+[ musicplayer.js demo ](http://htmlpreview.github.io/?https://raw.githubusercontent.com/subatomicglue/musicplayer.js/master/index.html)
 
 ## Preview
 
@@ -21,6 +21,11 @@ iOS player bar (minimized)
 
 Desktop (chrome browser)
 ![musicplayer.js (desktop view)](screenshot-desktop.jpg)
+
+### a very minimal monolithic player
+[ musicplayer-minimal.js demo ](http://htmlpreview.github.io/?https://raw.githubusercontent.com/subatomicglue/musicplayer.js/master/index-minimal.html)
+
+![musicplayer-minimal.js](screenshot-minimal.png)
 
 ## Get the code
 ```
