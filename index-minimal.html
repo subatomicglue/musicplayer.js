@@ -54,22 +54,22 @@
     <div id="playlist_element"></div>
     <script>
       let tracks=[
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/the.void.mp3", title: "The Void by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/hard.mp3", title: "Hard by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/mantis-TBdemo.mp3", title: "TBdemo by momerath", desc: "(303/pads & piercing sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/subfloor.mp3", title: "SubFloor by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/mantissong.mp3", title: "MantisSong by subatomic", desc: "(all sounds mantis, yes drums too!)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/acidbass.mp3", title: "AcidBass by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/cause.of.a.new.dark.age.mp3", title: "CauseOfANewDarkAge by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/grand.mp3", title: "Grand by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/weet.mp3", title: "Weet by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/silicone.mp3", title: "Silicone by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/feedme.mp3", title: "FeedMe by subatomic", desc: "(all mantis except drums and OSCar bass)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/daybreak.falls.mp3", title: "Daybreak Falls by subatomic", desc: "(all mantis except drums &amp; added distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/forestfloor.mp3", title: "ForestFloor by subatomic", desc: "(all mantis except drums &amp; +added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/inertial decay.mp3", title: "InertialDecay by subatomic", desc: "(all mantis except drums &amp; added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/rabbithole.mp3", title: "Rabbithole (subatomic)", desc: "(all mantis except drums +added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/strawberryflavoreddeath.mp3", title: "StrawberryFlavoredDeath (subatomic)", desc: "(all mantis except drums +external distortion)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/the.void.mp3", title: "The Void by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/hard.mp3", title: "Hard by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/mantis-TBdemo.mp3", title: "TBdemo by momerath", desc: "(303/pads & piercing sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/subfloor.mp3", title: "SubFloor by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/mantissong.mp3", title: "MantisSong by subatomic", desc: "(all sounds mantis, yes drums too!)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/acidbass.mp3", title: "AcidBass by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/cause.of.a.new.dark.age.mp3", title: "CauseOfANewDarkAge by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/grand.mp3", title: "Grand by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/weet.mp3", title: "Weet by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/silicone.mp3", title: "Silicone by subatomic", desc: "(all nondrum sounds mantis)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/feedme.mp3", title: "FeedMe by subatomic", desc: "(all mantis except drums and OSCar bass)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/daybreak.falls.mp3", title: "Daybreak Falls by subatomic", desc: "(all mantis except drums &amp; added distortion)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/forestfloor.mp3", title: "ForestFloor by subatomic", desc: "(all mantis except drums &amp; +added external distortion)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/inertial decay.mp3", title: "InertialDecay by subatomic", desc: "(all mantis except drums &amp; added external distortion)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/rabbithole.mp3", title: "Rabbithole (subatomic)", desc: "(all mantis except drums +added external distortion)" },
+        { file: "https://mantis.subatomiclabs.com/demo-tracks/strawberryflavoreddeath.mp3", title: "StrawberryFlavoredDeath (subatomic)", desc: "(all mantis except drums +external distortion)" },
       ];
       let musicplayer = new MusicPlayer();
       musicplayer.init( playlist_element, tracks );
