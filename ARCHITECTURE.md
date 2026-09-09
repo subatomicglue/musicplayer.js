@@ -580,7 +580,7 @@ Safari-tab playback is the primary iOS acceptance target; installed Home Screen/
 
 A playback error is treated as the track finishing and naturally triggers the state machine's `next()` behavior.
 
-Missing engine, playlist, or track IDs are ignored and may call `console.error()` plus the optional error callback. Duplicate playlist IDs from different playlist components are rejected as errors. The demo connects errors to a full-screen modal queue in `index.html`; each error is dismissed in order with its `X`, a backdrop tap, or the platform dialog-cancel action.
+Missing engine, playlist, or track IDs are ignored and call `console.error()` plus the optional error callback. A component whose explicit `player` ID does not exist retries after initial DOM connection, then routes the error through the first available engine so the page-level handler receives it. Duplicate playlist IDs from different playlist components are rejected as errors. The demo connects errors to a full-screen modal queue in `index.html`; each error is dismissed in order with its `X`, a backdrop tap, or the platform dialog-cancel action.
 
 ## Demo plan
 

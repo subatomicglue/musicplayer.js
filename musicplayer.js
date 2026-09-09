@@ -634,6 +634,7 @@
     }
 
     disconnectedCallback() {
+      clearTimeout(this._missingPlayerTimer);
       this.disconnectPlayer();
     }
 
@@ -643,7 +644,15 @@
 
     connectPlayer() {
       const player = this.resolvePlayer();
-      if (player === this._player) return;
+      if (player === this._player && player) return;
+      if (!player) {
+        this.disconnectPlayer();
+        this.scheduleMissingPlayerError();
+        return;
+      }
+      clearTimeout(this._missingPlayerTimer);
+      this._missingPlayerTimer = undefined;
+      this._reportedMissingPlayer = undefined;
       this.disconnectPlayer();
       this._player = player;
       this._onState = (event) => this.renderState?.(event.detail);
@@ -655,6 +664,32 @@
       player?.addEventListener("error", this._onError);
       player?.addEventListener("notify", this._onNotify);
       if (player) this.renderState?.(player.getState());
+    }
+
+    scheduleMissingPlayerError() {
+      const playerId = this.getAttribute("player");
+      if (!playerId || this._missingPlayerTimer || this._reportedMissingPlayer === playerId) return;
+      this._missingPlayerTimer = setTimeout(() => {
+        this._missingPlayerTimer = undefined;
+        if (!this.isConnected || this.getAttribute("player") !== playerId) return;
+        if (this.resolvePlayer()) {
+          this.connectPlayer();
+          return;
+        }
+        this._reportedMissingPlayer = playerId;
+        this.reportComponentError(`Player not found: ${playerId}`, undefined, {
+          code: "player-not-found",
+          playerId,
+          component: this.localName
+        });
+      });
+    }
+
+    reportComponentError(message, error, detail = {}) {
+      const reporter = this._player || findEngine();
+      if (reporter) return reporter.reportError(message, error, detail);
+      console.error(message, error || "");
+      emit(this, "error", { message, error, ...detail });
     }
 
     disconnectPlayer() {
@@ -708,7 +743,7 @@
     get data() {
       if (Array.isArray(this._data)) return this._data;
       try { return JSON.parse(this.getAttribute("data") || "[]"); }
-      catch (error) { this._player?.reportError(`Invalid playlist data: ${this.id}`, error); return []; }
+      catch (error) { this.reportComponentError(`Invalid playlist data: ${this.id}`, error); return []; }
     }
 
     get trackElements() {
@@ -769,7 +804,7 @@
     }
 
     syncEngine() {
-      if (!this.id) return this._player?.reportError("Playlist requires an id");
+      if (!this.id) return this.reportComponentError("Playlist requires an id");
       this.connectPlayer();
       this._player?.addPlaylist(this.id, {
         title: this.getAttribute("title"), artist: this.getAttribute("artist"), album: this.getAttribute("album"), icon: this.getAttribute("icon"),
