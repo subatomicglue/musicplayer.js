@@ -1,80 +1,127 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--    <script src="https://raw.githubusercontent.com/subatomicglue/musicplayer.js/master/musicplayer.js"></script> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>musicplayer.js Web Components demo</title>
+    <script>
+      window.errorQueue = [];
+      window.showError = (event) => {
+        errorQueue.push(event.detail);
+        window.showNextError?.();
+      };
+    </script>
     <script src="musicplayer.js"></script>
     <style>
-      .MusicPlayer_Controls {
-        vertical-align: sub;
-        padding-right: 0.25rem;
-      }
-      .MusicPlayer_Play {
-        color: grey;
-        font-size: 1rem;
-      }
-      .MusicPlayer_Play:hover {
-        color: #333333;
-      }
-      .MusicPlayer_Stop {
-        color: red;
-        font-size: 1rem;
-      }
-      .MusicPlayer_Stop:hover {
-        color: darkred;
-      }
-      .MusicPlayer_Title {
-        color: black;
-        font-weight: bold;
-        padding-right: 0.25rem;
-      }
-      .MusicPlayer_Download {
-        color: grey;
-        vertical-align: sub;
-        font-size: 1rem;
-      }
-      .MusicPlayer_Download:hover {
-        color: #333333;
-      }
-      .MusicPlayer_Description {
-        color: black;
-        padding-right: 0.25rem;
-      }
-      .MusicPlayer_ListItem {
-        font-family: arial, sans-serif;
-        font-size: 11px;
-      }
-      .MusicPlayer_ListItem:hover {
-        background: #eeeeee;
-      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 28px 20px 130px; color: #191919; background: #fafafa; font-family: system-ui, sans-serif; }
+      main { width: min(860px, 100%); margin: 0 auto; }
+      h1 { margin: 0 0 8px; }
+      h2 { margin: 30px 0 10px; }
+      p { color: #666; }
+      music-player-playlist { display: block; padding: 8px; border: 1px solid #ddd; border-radius: 12px; background: white; }
+      #system-errors { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 20px; border: 0; background: transparent; }
+      #system-errors::backdrop { background: #080000b8; }
+      #system-errors[open] { display: grid; place-items: center; }
+      .system-error-box { position: relative; width: min(560px, 100%); padding: 22px 54px 22px 22px; border: 2px solid #ff9c9c; border-radius: 10px; color: #ffd1d1; background: #4d0808; box-shadow: 0 12px 40px #0009; }
+      .system-error-box h2 { margin: 0 0 10px; color: #fff0f0; }
+      .system-error-box p { margin: 0; color: inherit; overflow-wrap: anywhere; }
+      #dismiss-error { position: absolute; top: 8px; right: 8px; width: 38px; height: 38px; border: 0; color: #ffb0b0; background: transparent; font: 30px/1 system-ui, sans-serif; cursor: pointer; }
+      #error-count { margin-top: 12px; color: #ffb0b0; font-size: 12px; }
+      #notification { position: fixed; z-index: 2100; left: 50%; bottom: 24px; max-width: calc(100% - 40px); padding: 10px 16px; border: 1px solid #b9dfff; border-radius: 8px; color: #e9f6ff; background: #17364a; box-shadow: 0 5px 18px #0005; opacity: 0; pointer-events: none; transform: translate(-50%, 8px); transition: .18s; }
+      #notification.visible { opacity: 1; transform: translate(-50%, 0); }
     </style>
   </head>
   <body>
-    <h1>musicplayer.js</h1>
+    <music-player id="main-player" icon="https://www.subatomicglue.com/images/subatomicglue-dragon-sq-500.jpg" onerror="showError(event)" onnotify="showNotification(event)"></music-player>
 
-    <div id="playlist_element"></div>
+    <main>
+      <h1>musicplayer.js</h1>
+      <p>Two playlists using one Web Component playback engine.
+        Notice the first track is shared (playing one plays both, but only one playlist is active)
+      </p>
+
+      <h2>Playlist one: manual tracks</h2>
+      <music-player-playlist id="playlist-one" player="main-player" title="Mantis demos, part one" artist="subatomic" icon="https://www.subatomicglue.com/images/subatomicglue-aeonblue-sq-500.jpg">
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/the.void.mp3" title="The Void by subatomic" desc="(all nondrum sounds mantis)"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/hard.mp3" title="Hard by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/mantis-TBdemo.mp3" title="TBdemo by momerath" desc="(303/pads &amp; piercing sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/subfloor.mp3" title="SubFloor by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/mantissong.mp3" title="MantisSong by subatomic" desc="(all sounds mantis, yes drums too!)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/acidbass.mp3" title="AcidBass by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/cause.of.a.new.dark.age.mp3" title="CauseOfANewDarkAge by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/grand.mp3" title="Grand by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+      </music-player-playlist>
+
+      <h2>Playlist two: data property</h2>
+      <music-player-playlist id="playlist-two" player="main-player" title="Mantis demos, part two" artist="subatomic" compact></music-player-playlist>
+
+      <h2>Playlist three: shorty</h2>
+      <music-player-playlist id="playlist-three" player="other-player" title="Mantis demos, part one" artist="subatomic" icon="https://www.subatomicglue.com/images/subatomicglue-aeonblue-sq-500.jpg">
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/the.void.mp3" title="The Void by subatomic" desc="(all nondrum sounds mantis)"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/hard.mp3" title="Hard by subatomic" desc="(all nondrum sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+        <music-player-playlist-track src="http://mantis.subatomiclabs.com/demo-tracks/mantis-TBdemo.mp3" title="TBdemo by momerath" desc="(303/pads &amp; piercing sounds mantis)" icon="https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg"></music-player-playlist-track>
+      </music-player-playlist>
+    </main>
+
+    <music-player-bar player="main-player"></music-player-bar>
+    <dialog id="system-errors" aria-labelledby="system-error-title" aria-describedby="system-error-message">
+      <div class="system-error-box" role="alert">
+        <button id="dismiss-error" aria-label="Dismiss error">×</button>
+        <h2 id="system-error-title">System error</h2>
+        <p id="system-error-message"></p>
+        <div id="error-count"></div>
+      </div>
+    </dialog>
+    <div id="notification" role="status" aria-live="polite"></div>
+
     <script>
-      let tracks=[
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/the.void.mp3", title: "The Void by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/hard.mp3", title: "Hard by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/mantis-TBdemo.mp3", title: "TBdemo by momerath", desc: "(303/pads & piercing sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/subfloor.mp3", title: "SubFloor by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/mantissong.mp3", title: "MantisSong by subatomic", desc: "(all sounds mantis, yes drums too!)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/acidbass.mp3", title: "AcidBass by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/cause.of.a.new.dark.age.mp3", title: "CauseOfANewDarkAge by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/grand.mp3", title: "Grand by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/weet.mp3", title: "Weet by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/silicone.mp3", title: "Silicone by subatomic", desc: "(all nondrum sounds mantis)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/feedme.mp3", title: "FeedMe by subatomic", desc: "(all mantis except drums and OSCar bass)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/daybreak.falls.mp3", title: "Daybreak Falls by subatomic", desc: "(all mantis except drums &amp; added distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/forestfloor.mp3", title: "ForestFloor by subatomic", desc: "(all mantis except drums &amp; +added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/inertial decay.mp3", title: "InertialDecay by subatomic", desc: "(all mantis except drums &amp; added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/rabbithole.mp3", title: "Rabbithole (subatomic)", desc: "(all mantis except drums +added external distortion)" },
-        { file: "http://mantis.subatomiclabs.com/demo-tracks/strawberryflavoreddeath.mp3", title: "StrawberryFlavoredDeath (subatomic)", desc: "(all mantis except drums +external distortion)" },
+      document.getElementById("playlist-two").data = [
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/the.void.mp3", title: "The Void by subatomic", desc: "(duplicate track to test playlist switching)" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/weet.mp3", title: "Weet by subatomic", desc: "(all nondrum sounds mantis)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/silicone.mp3", title: "Silicone by subatomic", desc: "(all nondrum sounds mantis)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/feedme.mp3", title: "FeedMe by subatomic", desc: "(all mantis except drums and OSCar bass)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/daybreak.falls.mp3", title: "Daybreak Falls by subatomic", desc: "(all mantis except drums & added distortion)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/forestfloor.mp3", title: "ForestFloor by subatomic", desc: "(all mantis except drums & +added external distortion)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/inertial decay.mp3", title: "InertialDecay by subatomic", desc: "(all mantis except drums & added external distortion)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/rabbithole.mp3", title: "Rabbithole (subatomic)", desc: "(all mantis except drums +added external distortion)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" },
+        { src: "http://mantis.subatomiclabs.com/demo-tracks/strawberryflavoreddeath.mp3", title: "StrawberryFlavoredDeath (subatomic)", desc: "(all mantis except drums +external distortion)", icon: "https://www.subatomicglue.com/images/subatomicglue-inertialdecay-sq-500.jpg" }
       ];
-      let musicplayer = new MusicPlayer();
-      musicplayer.init( playlist_element, tracks );
+
+      window.showNextError = function () {
+        const dialog = document.getElementById("system-errors");
+        if (!errorQueue.length) {
+          if (dialog.open) dialog.close();
+          return;
+        }
+        document.getElementById("system-error-message").textContent = errorQueue[0].message;
+        document.getElementById("error-count").textContent = errorQueue.length > 1 ? `${errorQueue.length} errors queued` : "";
+        if (!dialog.open) dialog.showModal();
+      };
+
+      function dismissError() {
+        errorQueue.shift();
+        showNextError();
+      }
+
+      document.getElementById("dismiss-error").addEventListener("click", dismissError);
+      document.getElementById("system-errors").addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) dismissError();
+      });
+      document.getElementById("system-errors").addEventListener("cancel", (event) => {
+        event.preventDefault();
+        dismissError();
+      });
+      showNextError();
+
+      let notificationTimer;
+      function showNotification(event) {
+        const notification = document.getElementById("notification");
+        notification.textContent = event.detail.message;
+        notification.classList.add("visible");
+        clearTimeout(notificationTimer);
+        notificationTimer = setTimeout(() => notification.classList.remove("visible"), 2500);
+      }
     </script>
   </body>
-
 </html>
-
