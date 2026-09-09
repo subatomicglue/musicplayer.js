@@ -2,7 +2,9 @@
 
 HTML Web Component music track player
 
-[ musicplayer.js demo ](http://htmlpreview.github.io/?https://raw.githubusercontent.com/subatomicglue/musicplayer.js/master/index.html)
+
+
+[ musicplayer.js demo ](https://subatomicglue.github.io/musicplayer.js/index.html)
 
 ## Preview
 
